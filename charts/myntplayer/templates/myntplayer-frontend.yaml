@@ -61,5 +61,6 @@ spec:
             successThreshold: 1
             timeoutSeconds: 3
             failureThreshold: 1
-          - {name: "API_KEY", value: "{{.Values.API_KEY}}"}
+          env: 
+            - {name: "API_KEY", value: "{{.Values.API_KEY}}"}
             
