@@ -37,15 +37,15 @@ spec:
     spec: 
       containers:
         - name: frontend
-          image: maktouch/myntplayer:3.0.0
-          command: "yarn frontend start"
+          image: maktouch/myntplayer:{{.Values.tag}}
+          command: ["yarn", "frontend", "start"]
           resources:
             requests:
               cpu: 100m
               memory: 32Mi
           livenessProbe:
             httpGet:
-              path: /
+              path: /z/health
               port: 3000
             initialDelaySeconds: 10
             periodSeconds: 10
@@ -54,7 +54,7 @@ spec:
             failureThreshold: 1
           readinessProbe:
             httpGet:
-              path: /
+              path: /z/health
               port: 3000
             initialDelaySeconds: 10
             periodSeconds: 10

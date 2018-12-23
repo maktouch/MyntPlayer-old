@@ -37,8 +37,8 @@ spec:
     spec: 
       containers:
         - name: backend
-          image: maktouch/myntplayer:3.0.0
-          command: "yarn backend start"
+          image: maktouch/myntplayer:{{.Values.tag}}
+          command: ["yarn", "backend", "start"]
           resources:
             requests:
               cpu: 100m
@@ -63,5 +63,5 @@ spec:
             failureThreshold: 1
           env:
             - {name: "REDIS_PREFIX", value: "prd"}
-            - {name: "REDIS_SERVICE_HOST", value: "redis"}
+            - {name: "REDIS_SERVICE_HOST", value: "10.244.52.9"}
             - {name: "REDIS_SERVICE_PORT", value: "6379"}
