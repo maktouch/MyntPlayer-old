@@ -21,11 +21,7 @@ export default function AddPage(props) {
           },
         });
 
-        const { queue } = data;
-
-        console.log({ queue });
-
-        setQueue(queue);
+        setQueue(data.queue);
 
         WS.on(`sync:${masterId}`, function({ queue }) {
           setQueue(queue);

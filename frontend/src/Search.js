@@ -30,7 +30,7 @@ export default function App(props) {
     setValue(value);
 
     const results = await YoutubeSearch(value);
-    setResults(results);
+    setResults(results.filter(v => props.ids.indexOf(v.id) === -1));
     setLoading(false);
   }
 

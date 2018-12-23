@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import YoutubeSearch from './YoutubeSearch';
 import styles from './App.module.css';
 import logo from './logo.png';
@@ -9,6 +10,8 @@ import Search from './Search';
 
 import WS from './Websocket';
 import QR from './QR';
+import sample from 'lodash/sample';
+import uniqBy from 'lodash/uniqBy';
 
 export function SearchContainer(props) {
   return <div className={styles.Search}>{props.children}</div>;
@@ -23,6 +26,21 @@ export default function App(props) {
   const [queue, setQueue] = useState([]);
   const [progress, setProgress] = useState(0);
   const [lastVideoId, setLastVideoId] = useState(null);
+
+  useEffect(
+    _ => {
+      (async function() {
+        const { data } = await axios.get('/api/queue', {
+          params: {
+            masterId,
+          },
+        });
+
+        setQueue(data.queue);
+      })();
+    },
+    [masterId]
+  );
 
   useEffect(
     _ => {
@@ -47,20 +65,28 @@ export default function App(props) {
         WS.emit(`sync`, { queue, masterId });
 
         if (queue.length === 0 && lastVideoId) {
-          try {
-            const results = await YoutubeSearch('', { relatedToVideoId: lastVideoId, maxResults: 5 });
-            setQueue([...results.map(r => ({ ...r, autoadded: true }))]);
-          } catch (err) {
-            console.error(err);
-          }
+          generateMoreVideo(lastVideoId);
         }
       })();
     },
     [masterId, queue]
   );
 
-  function addToQueue(video) {
-    setQueue([...queue, video]);
+  async function generateMoreVideo(lastVideoId) {
+    const random = sample(queue);
+    const relatedToVideoId = random ? random.id : lastVideoId;
+
+    try {
+      const results = await YoutubeSearch('', { relatedToVideoId, maxResults: 5 });
+      const newVideos = results.map(r => ({ ...r, autoadded: true }));
+      setQueue(uniqBy([...queue, ...newVideos], 'id'));
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  async function addToQueue(video) {
+    setQueue(uniqBy([...queue, video], 'id'));
   }
 
   async function onEnded() {
@@ -77,11 +103,10 @@ export default function App(props) {
     setQueue(newQueue);
   }
 
-  function onRemove(video, index) {
-    // copy the current queue cause splice is mutating
-    const newQueue = [...queue];
-    newQueue.splice(index, 1);
-    setQueue(newQueue);
+  function onRemove(video) {
+    const filtered = queue.filter(v => v.id !== video.id);
+
+    setQueue(filtered);
   }
 
   function onProgress({ played }) {
@@ -99,10 +124,16 @@ export default function App(props) {
         <div className={styles.Credit}>v3.0 by MyntLabs.com © {new Date().getFullYear()}</div>
       </div>
       <SearchContainer>
-        <Search addToQueue={addToQueue} />
+        <Search addToQueue={addToQueue} ids={queue.map(v => v.id)} />
       </SearchContainer>
       <SidebarContainer>
-        <Sidebar queue={queue} progress={progress} onQueueNext={onQueueNext} onRemove={onRemove} />
+        <Sidebar
+          queue={queue}
+          progress={progress}
+          onQueueNext={onQueueNext}
+          onRemove={onRemove}
+          generateMoreVideo={generateMoreVideo}
+        />
       </SidebarContainer>
       <div className={styles.Main}>
         <Player

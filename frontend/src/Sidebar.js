@@ -51,7 +51,7 @@ export default function Sidebar(props) {
         </Segment>
       )}
 
-      <Item.Group divided>
+      <div className={styles.VideosContainer}>
         <Progress percent={progress} size="tiny" indicating color="olive" className={styles.Progress} />
         {queue.map((video, position) => (
           <Video
@@ -63,7 +63,18 @@ export default function Sidebar(props) {
             onRemove={_ => onRemove(video, position)}
           />
         ))}
-      </Item.Group>
+        <Button
+          icon
+          primary
+          labelPosition="left"
+          size="tiny"
+          onClick={props.generateMoreVideo}
+          className={styles.AddMore}
+        >
+          <Icon name="random" />
+          Add similar videos
+        </Button>
+      </div>
     </React.Fragment>
   );
 }

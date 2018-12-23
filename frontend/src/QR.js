@@ -1,5 +1,4 @@
 import React, { useState, useMemo } from 'react';
-import { Item } from 'semantic-ui-react';
 import QRCode from 'qrcode';
 
 export default function QR(props) {
@@ -8,11 +7,14 @@ export default function QR(props) {
 
   useMemo(
     _ => {
-      QRCode.toDataURL(addUrl).then(url => {
+      QRCode.toDataURL(addUrl, {
+        color: {
+          light: '#000000ff',
+          dark: '#ffffff',
+        },
+      }).then(url => {
         setQr(url);
       });
-
-      console.log({ addUrl });
     },
     [props.masterId]
   );
@@ -23,13 +25,7 @@ export default function QR(props) {
 
   return (
     <a href={addUrl} rel="noopener noreferrer" target="_blank">
-      <Item.Group divided>
-        <Item>
-          <Item.Image size="tiny" src={qr} />
-
-          <Item.Content verticalAlign="middle">Add videos from your phone by scanning this QR Code</Item.Content>
-        </Item>
-      </Item.Group>
+      <img src={qr} alt="QR" style={{ width: 140 }} />
     </a>
   );
 }

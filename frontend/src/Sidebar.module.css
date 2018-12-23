@@ -1,3 +1,10 @@
+.VideosContainer {
+  overflow-y: scroll;
+  height: 150%;
+  display: flex;
+  flex-direction: column;
+}
+
 .QueuedVideo {
   transition: min-height 500ms;
   position: relative;

@@ -2,11 +2,10 @@
   height: 100vh;
   display: grid;
   grid-template-columns: auto 300px;
-  grid-template-rows: 60px auto 100px;
+  grid-template-rows: 60px auto;
   grid-template-areas:
     'header search'
-    'main sidebar'
-    'main qr';
+    'main sidebar';
   background: black;
   color: white;
 }
@@ -32,6 +31,7 @@
 .Sidebar {
   grid-area: sidebar;
   padding: 10px;
+  overflow-y: scroll;
 }
 
 .Main {
@@ -40,6 +40,7 @@
 }
 
 .QR {
-  grid-area: qr;
-  padding: 10px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
