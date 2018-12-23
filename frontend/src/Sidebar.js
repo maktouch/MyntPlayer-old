@@ -1,5 +1,5 @@
 import React from 'react';
-import { Item, Header, Button, Icon, Label, Progress, Segment } from 'semantic-ui-react';
+import { Header, Button, Icon, Label, Progress, Segment } from 'semantic-ui-react';
 
 import styles from './Sidebar.module.css';
 
