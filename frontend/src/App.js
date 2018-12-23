@@ -19,53 +19,52 @@ export function SidebarContainer(props) {
 }
 
 export default function App(props) {
+  const { masterId } = props;
   const [queue, setQueue] = useState([]);
   const [progress, setProgress] = useState(0);
   const [lastVideoId, setLastVideoId] = useState(null);
 
   const addToQueue = video => setQueue([...queue, video]);
 
-  useEffect(_ => {
-    WS.on('addToQueue', function({ video }) {
-      console.log(video);
-      addToQueue(video);
-    });
+  useEffect(
+    _ => {
+      // set it in the url
+      window.history.replaceState({}, document.title, `${window.document.location.pathname}?masterId=${masterId}`);
 
-    return _ => {
-      WS.off('addToQueue');
-    };
-  });
+      WS.on(`addToQueue:${masterId}`, function({ video }) {
+        console.log({ video });
+        addToQueue(video);
+      });
+
+      return _ => {
+        WS.off(`addToQueue:${masterId}`);
+      };
+    },
+    [masterId]
+  );
 
   useEffect(
     _ => {
-      WS.emit('sync', queue);
+      (async function() {
+        WS.emit(`sync`, { queue, masterId });
+
+        if (queue.length === 0) {
+          const results = await YoutubeSearch('', { relatedToVideoId: lastVideoId, maxResults: 5 });
+          setQueue([...results.map(r => ({ ...r, autoadded: true }))]);
+        }
+      })();
     },
-    [queue]
+    [masterId, queue]
   );
-
-  async function setSmartQueue(newQueue) {
-    setQueue(newQueue);
-
-    if (!lastVideoId) {
-      return;
-    }
-
-    if (newQueue.length > 0) {
-      return;
-    }
-
-    const results = await YoutubeSearch('', { relatedToVideoId: lastVideoId, maxResults: 5 });
-    setQueue([...results.map(r => ({ ...r, autoadded: true }))]);
-  }
 
   async function onEnded() {
     queue.splice(0, 1);
     const newQueue = [...queue];
 
-    setSmartQueue(newQueue);
+    setQueue(newQueue);
   }
 
-  function onPlayNext(video, index) {
+  function onQueueNext(video, index) {
     const spliced = queue.splice(index, 1);
     const current = queue.splice(0, 1);
     const newQueue = [...current, ...spliced, ...queue];
@@ -76,7 +75,7 @@ export default function App(props) {
     // copy the current queue cause splice is mutating
     const newQueue = [...queue];
     newQueue.splice(index, 1);
-    setSmartQueue(newQueue);
+    setQueue(newQueue);
   }
 
   function onProgress({ played }) {
@@ -97,7 +96,7 @@ export default function App(props) {
         <Search addToQueue={addToQueue} />
       </SearchContainer>
       <SidebarContainer>
-        <Sidebar queue={queue} progress={progress} onPlayNext={onPlayNext} onRemove={onRemove} />
+        <Sidebar queue={queue} progress={progress} onQueueNext={onQueueNext} onRemove={onRemove} />
       </SidebarContainer>
       <div className={styles.Main}>
         <Player
@@ -109,7 +108,7 @@ export default function App(props) {
         />
       </div>
       <div className={styles.QR}>
-        <QR />
+        <QR masterId={props.masterId} />
       </div>
     </div>
   );

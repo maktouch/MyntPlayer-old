@@ -1,13 +1,14 @@
 import search from 'youtube-search';
 import get from 'lodash/get';
 
-const key = 'AIzaSyDZNFpMvJjs3X9K4YqjYE5dfoFYymEMUPg';
+const key = 'AIzaSyD-uLAztEPTV4swJlCHNXqLiFd-TonmOf0';
 
 export default async function(query, params = {}) {
   const opts = {
     type: 'video',
     maxResults: 10,
     videoEmbeddable: 'true',
+    videoCategoryId: '10', // music only!
     key,
     ...params,
   };

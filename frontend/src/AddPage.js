@@ -9,21 +9,26 @@ import WS from './Websocket';
 import { SearchContainer, SidebarContainer } from './App';
 
 export default function AddPage(props) {
+  const { masterId } = props;
   const [queue, setQueue] = useState([]);
 
-  useEffect(_ => {
-    WS.on('sync', function({ queue }) {
-      setQueue(queue);
-    });
+  useEffect(
+    _ => {
+      WS.on(`sync:${masterId}`, function({ queue }) {
+        setQueue(queue);
+      });
 
-    return _ => {
-      WS.off('sync');
-    };
-  });
+      return _ => {
+        WS.off(`sync:${masterId}`);
+      };
+    },
+    [masterId]
+  );
 
   async function addToQueue(video) {
     await axios.post('/api/addToQueue', {
       video,
+      masterId,
     });
 
     setQueue([...queue, video]);

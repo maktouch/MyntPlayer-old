@@ -7,8 +7,8 @@ metadata:
     type: myntplayer-backend
 spec:
   ports:
-  - port: 3000
-    targetPort: 3000
+  - port: 9305
+    targetPort: 9305
     protocol: TCP
     name: http
   selector:
