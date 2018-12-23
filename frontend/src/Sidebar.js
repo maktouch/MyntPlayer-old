@@ -63,17 +63,19 @@ export default function Sidebar(props) {
             onRemove={_ => onRemove(video, position)}
           />
         ))}
-        <Button
-          icon
-          primary
-          labelPosition="left"
-          size="tiny"
-          onClick={props.generateMoreVideo}
-          className={styles.AddMore}
-        >
-          <Icon name="random" />
-          Add similar videos
-        </Button>
+        {queue.length > 0 && (
+          <Button
+            icon
+            primary
+            labelPosition="left"
+            size="tiny"
+            onClick={props.generateMoreVideo}
+            className={styles.AddMore}
+          >
+            <Icon name="random" />
+            Add similar videos
+          </Button>
+        )}
       </div>
     </React.Fragment>
   );
