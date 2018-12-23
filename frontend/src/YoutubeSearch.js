@@ -1,5 +1,6 @@
 import search from 'youtube-search';
 import get from 'lodash/get';
+import config from './config';
 
 export default async function(query, params = {}) {
   const opts = {
@@ -7,7 +8,7 @@ export default async function(query, params = {}) {
     maxResults: 10,
     videoEmbeddable: 'true',
     videoCategoryId: '10', // music only!
-    key: window.env.API_KEY,
+    key: config.REACT_APP_API_KEY,
     ...params,
   };
 

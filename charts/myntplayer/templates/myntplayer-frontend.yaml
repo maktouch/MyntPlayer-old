@@ -38,6 +38,7 @@ spec:
       containers:
         - name: frontend
           image: maktouch/myntplayer:{{.Values.tag}}
+          imagePullPolicy: Always
           command: ["yarn", "frontend", "start"]
           resources:
             requests:
@@ -62,5 +63,5 @@ spec:
             timeoutSeconds: 3
             failureThreshold: 1
           env: 
-            - {name: "API_KEY", value: "{{.Values.API_KEY}}"}
+            - {name: "REACT_APP_API_KEY", value: "{{.Values.REACT_APP_API_KEY}}"}
             

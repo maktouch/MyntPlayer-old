@@ -38,6 +38,7 @@ spec:
       containers:
         - name: backend
           image: maktouch/myntplayer:{{.Values.tag}}
+          imagePullPolicy: Always
           command: ["yarn", "backend", "start"]
           resources:
             requests:

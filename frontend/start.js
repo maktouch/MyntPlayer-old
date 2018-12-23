@@ -5,8 +5,8 @@ const path = require('path');
 const app = express();
 const fs = require('fs');
 
-const { API_KEY } = process.env;
-const config = { API_KEY };
+const { REACT_APP_API_KEY } = process.env;
+const config = { REACT_APP_API_KEY };
 
 const indexPath = path.join(__dirname, 'build', 'index.html');
 const original = fs.readFileSync(indexPath, 'utf8');

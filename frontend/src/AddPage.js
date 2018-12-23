@@ -14,9 +14,23 @@ export default function AddPage(props) {
 
   useEffect(
     _ => {
-      WS.on(`sync:${masterId}`, function({ queue }) {
+      (async function() {
+        const { data } = await axios.get('/api/queue', {
+          params: {
+            masterId,
+          },
+        });
+
+        const { queue } = data;
+
+        console.log({ queue });
+
         setQueue(queue);
-      });
+
+        WS.on(`sync:${masterId}`, function({ queue }) {
+          setQueue(queue);
+        });
+      })();
 
       return _ => {
         WS.off(`sync:${masterId}`);

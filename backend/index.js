@@ -35,9 +35,23 @@ app.post('/api/addToQueue', function(req, res) {
   io.emit(`addToQueue:${masterId}`, { video });
 });
 
+app.get('/api/queue', async function(req, res) {
+  const { masterId } = req.query;
+
+  const queue = await pubClient.get(`list:${masterId}`);
+
+  if (!queue) {
+    res.send({ queue: [] });
+    return;
+  }
+
+  res.send({ queue: JSON.parse(queue) });
+});
+
 io.on('connection', function(socket) {
   socket.on('sync', function({ queue, masterId }) {
     io.emit(`sync:${masterId}`, { queue });
+    pubClient.setex(`list:${masterId}`, 1800, JSON.stringify(queue));
   });
 });
 

@@ -24,15 +24,12 @@ export default function App(props) {
   const [progress, setProgress] = useState(0);
   const [lastVideoId, setLastVideoId] = useState(null);
 
-  const addToQueue = video => setQueue([...queue, video]);
-
   useEffect(
     _ => {
       // set it in the url
       window.history.replaceState({}, document.title, `${window.document.location.pathname}?masterId=${masterId}`);
 
       WS.on(`addToQueue:${masterId}`, function({ video }) {
-        console.log({ video });
         addToQueue(video);
       });
 
@@ -40,22 +37,31 @@ export default function App(props) {
         WS.off(`addToQueue:${masterId}`);
       };
     },
-    [masterId]
+    [masterId, addToQueue]
   );
 
   useEffect(
     _ => {
       (async function() {
+        setProgress(0);
         WS.emit(`sync`, { queue, masterId });
 
-        if (queue.length === 0) {
-          const results = await YoutubeSearch('', { relatedToVideoId: lastVideoId, maxResults: 5 });
-          setQueue([...results.map(r => ({ ...r, autoadded: true }))]);
+        if (queue.length === 0 && lastVideoId) {
+          try {
+            const results = await YoutubeSearch('', { relatedToVideoId: lastVideoId, maxResults: 5 });
+            setQueue([...results.map(r => ({ ...r, autoadded: true }))]);
+          } catch (err) {
+            console.error(err);
+          }
         }
       })();
     },
     [masterId, queue]
   );
+
+  function addToQueue(video) {
+    setQueue([...queue, video]);
+  }
 
   async function onEnded() {
     queue.splice(0, 1);
