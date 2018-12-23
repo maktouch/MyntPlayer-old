@@ -1,0 +1,67 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: myntplayer-backend
+  labels:
+    type: myntplayer-backend
+spec:
+  ports:
+  - port: 3000
+    targetPort: 3000
+    protocol: TCP
+    name: http
+  selector:
+    type: myntplayer-backend
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: myntplayer-backend
+  labels:
+    type: myntplayer-backend
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: "100%"
+  minReadySeconds: 10
+  revisionHistoryLimit: 1
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        type: myntplayer-backend
+    spec: 
+      containers:
+        - name: backend
+          image: maktouch/myntplayer:3.0.0
+          command: "yarn backend start"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          livenessProbe:
+            httpGet:
+              path: /z/health
+              port: 9305
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 3
+            failureThreshold: 1
+          readinessProbe:
+            httpGet:
+              path: /z/health
+              port: 9305
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 3
+            failureThreshold: 1
+          env:
+            - {name: "REDIS_PREFIX", value: "prd"}
+            - {name: "REDIS_SERVICE_HOST", value: "redis"}
+            - {name: "REDIS_SERVICE_PORT", value: "6379"}

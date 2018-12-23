@@ -1,0 +1,20 @@
+services:
+  - name: ingress
+    path: .devctl/ingress
+    description: Ingress
+    category: services
+    notes: |
+      You can access your corresponding app by going to
+          https://myntplayer.local 
+
+  - name: redis
+    path: .devctl/redis
+    description: Redis
+    category: services
+
+environment:
+  - name: dev
+    description: Run everything locally
+
+commands: []
+scaffold: []

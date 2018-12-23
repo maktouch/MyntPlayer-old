@@ -1,0 +1,7 @@
+services:
+  - ingress
+  - redis
+environment: dev
+dockerhost:
+  address: 192.168.254.184
+  interfaceName: en0

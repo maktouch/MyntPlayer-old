@@ -1,0 +1,18 @@
+{
+  "name": "@myntplayer/backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "NODE_ENV=production node index.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "ioredis": "^4.3.0",
+    "socket.io": "^2.2.0"
+  }
+}

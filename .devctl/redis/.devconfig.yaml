@@ -1,0 +1,7 @@
+compose: 
+  default: 
+    redis:
+      image: redis:5-alpine3.8
+      ports:
+        - "6379:6379"
+      restart: always

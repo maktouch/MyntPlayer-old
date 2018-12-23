@@ -1,0 +1,45 @@
+.App {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: auto 300px;
+  grid-template-rows: 60px auto 100px;
+  grid-template-areas:
+    'header search'
+    'main sidebar'
+    'main qr';
+  background: black;
+  color: white;
+}
+
+.Credit {
+  font-size: 0.8em;
+  padding: 0 15px;
+  color: #999;
+}
+
+.Header {
+  grid-area: header;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.Search {
+  grid-area: search;
+  padding: 10px;
+}
+
+.Sidebar {
+  grid-area: sidebar;
+  padding: 10px;
+}
+
+.Main {
+  grid-area: main;
+  padding: 10px;
+}
+
+.QR {
+  grid-area: qr;
+  padding: 10px;
+}

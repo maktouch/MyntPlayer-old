@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "workspaces": [
+    "*"
+  ],
+  "scripts": {
+    "frontend": "yarn workspace @myntplayer/frontend",
+    "backend": "yarn workspace @myntplayer/backend",
+    "dev": "concurrently \"yarn frontend dev\" \"yarn backend dev\""
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0"
+  }
+}

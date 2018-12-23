@@ -1,0 +1,8 @@
+.devctl
+.devctl-current.yaml
+.devctl-docker-compose.yaml
+.devctl.yaml
+**/node_modules
+dev
+Dockerfile
+node_modules

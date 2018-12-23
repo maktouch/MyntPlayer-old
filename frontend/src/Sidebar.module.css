@@ -1,0 +1,45 @@
+.QueuedVideo {
+  transition: min-height 500ms;
+  position: relative;
+  min-height: 60px;
+}
+
+.QueuedVideo p {
+  position: relative;
+  padding: 10px;
+  margin: 0;
+}
+
+.BGOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+.QueuedVideoHoverOverlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #380000ed;
+  align-items: center;
+  justify-content: center;
+}
+
+.QueuedVideo:hover .QueuedVideoHoverOverlay {
+  display: flex;
+}
+
+.Progress {
+  margin: 0 !important;
+}
+
+.Progress :global(.bar) {
+  min-width: 0 !important;
+}

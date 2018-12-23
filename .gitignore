@@ -1,0 +1,4 @@
+.DS_Store
+node_modules
+.devct-current.yaml
+.devct-docker-compose.yaml
