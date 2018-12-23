@@ -3,11 +3,13 @@ const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
+const redisAdapter = require('socket.io-redis');
 const bodyParser = require('body-parser');
 const createRedis = require('./redis');
+const pubClient = createRedis('pubClient');
+const subClient = createRedis('subClient');
 
-const publisher = createRedis('publisher');
-const subscriber = createRedis('subscriber');
+io.adapter(redisAdapter({ pubClient, subClient }));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -28,22 +30,14 @@ app.get('/z/health', function(req, res) {
 });
 
 app.post('/api/addToQueue', function(req, res) {
-  const { video } = req.body;
-  res.send({ video });
-  publisher.publish('addToQueue', JSON.stringify({ video }));
+  const { video, masterId } = req.body;
+  res.send({ video, masterId });
+  io.emit(`addToQueue:${masterId}`, { video });
 });
 
 io.on('connection', function(socket) {
-  subscriber.subscribe('addToQueue', 'sync');
-  subscriber.on('message', function(channel, message) {
-    const parsed = JSON.parse(message);
-    console.log('received from redis', channel, parsed);
-    socket.emit(channel, parsed);
-  });
-
-  socket.on('sync', function(queue) {
-    console.log('received from ws', queue);
-    publisher.publish('sync', JSON.stringify({ queue }));
+  socket.on('sync', function({ queue, masterId }) {
+    io.emit(`sync:${masterId}`, { queue });
   });
 });
 

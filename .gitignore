@@ -2,3 +2,4 @@
 node_modules
 .devct-current.yaml
 .devct-docker-compose.yaml
+charts/**/secrets*.yaml

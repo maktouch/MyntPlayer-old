@@ -4,7 +4,7 @@ import { Item, Header, Button, Icon, Label, Progress, Segment } from 'semantic-u
 import styles from './Sidebar.module.css';
 
 function Video(props) {
-  const { title, position, src, onPlayNext, onRemove, showHover } = props;
+  const { title, position, src, onQueueNext, onRemove, showHover } = props;
 
   const style = {};
 
@@ -23,7 +23,7 @@ function Video(props) {
             <Icon name="trash" />
           </Button>
           {position > 0 && (
-            <Button icon primary labelPosition="left" disabled={position === 0} onClick={onPlayNext}>
+            <Button icon primary labelPosition="left" disabled={position === 0} onClick={onQueueNext}>
               <Icon name="play" />
               Play next
             </Button>
@@ -35,7 +35,7 @@ function Video(props) {
 }
 
 export default function Sidebar(props) {
-  const { queue, progress, showHover = true, onPlayNext, onRemove } = props;
+  const { queue, progress, showHover = true, onQueueNext, onRemove } = props;
   return (
     <React.Fragment>
       <Header>
@@ -59,7 +59,7 @@ export default function Sidebar(props) {
             position={position}
             showHover={showHover}
             className={styles.QueuedVideo}
-            onPlayNext={_ => onPlayNext(video, position)}
+            onQueueNext={_ => onQueueNext(video, position)}
             onRemove={_ => onRemove(video, position)}
           />
         ))}

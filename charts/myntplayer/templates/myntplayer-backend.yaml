@@ -7,8 +7,8 @@ metadata:
     type: myntplayer-backend
 spec:
   ports:
-  - port: 3000
-    targetPort: 3000
+  - port: 9305
+    targetPort: 9305
     protocol: TCP
     name: http
   selector:
@@ -62,6 +62,6 @@ spec:
             timeoutSeconds: 3
             failureThreshold: 1
           env:
-            - {name: "REDIS_PREFIX", value: "prd"}
-            - {name: "REDIS_SERVICE_HOST", value: "10.244.52.9"}
-            - {name: "REDIS_SERVICE_PORT", value: "6379"}
+            - {name: "REDIS_PREFIX", value: "{{.Values.REDIS_PREFIX}}"}
+            - {name: "REDIS_SERVICE_HOST", value: "{{.Values.REDIS_SERVICE_HOST}}"}
+            - {name: "REDIS_SERVICE_PORT", value: "{{.Values.REDIS_SERVICE_PORT}}"}
