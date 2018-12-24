@@ -47,7 +47,7 @@ export default function AddPage(props) {
   return (
     <div className={styles.AddPage}>
       <SearchContainer>
-        <Search addToQueue={addToQueue} />
+        <Search addToQueue={addToQueue} ids={queue.map(v => v.id)} />
       </SearchContainer>
       <SidebarContainer>
         <Sidebar queue={queue} progress={0} showHover={false} />
