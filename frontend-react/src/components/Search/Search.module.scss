@@ -1,0 +1,86 @@
+.Container {
+  grid-area: search;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.Search {
+  height: 2em;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 20px;
+  position: relative;
+
+  svg {
+    position: absolute;
+    right: 6px;
+    top: 7px;
+  }
+}
+
+.input {
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 20px;
+  border: none;
+  height: 2em;
+  padding-left: 10px;
+
+  &::placeholder {
+    color: #aaaaaa;
+  }
+}
+
+.iconSearch {
+  position: absolute;
+  right: 20px;
+  color: red;
+  stroke: red;
+  fill: red;
+}
+
+.SearchResults {
+  position: absolute;
+  top: 2.5em;
+  background: #f1f1f1;
+  width: 450px;
+  right: 0;
+  border-radius: 5px;
+  color: #6f6f6f;
+  margin-left: 1em;
+  display: none;
+}
+
+.SearchResultsFocused {
+  display: block;
+}
+
+.Result {
+  display: grid;
+  grid-template-columns: auto 80px;
+  grid-template-rows: auto;
+  grid-template-areas: 'title image';
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  border-bottom: 1px solid #eaeaea;
+  cursor: pointer;
+  min-height: 60px;
+
+  &:hover {
+    background: #d8d8d8;
+  }
+}
+
+.ResultItem {
+  grid-area: title;
+  display: flex;
+  align-items: center;
+  padding-left: 1em;
+}
+
+.ResultImage {
+  grid-area: image;
+  width: 100%;
+}

@@ -4,9 +4,9 @@
     "*"
   ],
   "scripts": {
-    "frontend": "yarn workspace @myntplayer/frontend",
+    "react": "yarn workspace @myntplayer/react",
     "backend": "yarn workspace @myntplayer/backend",
-    "dev": "concurrently \"yarn frontend dev\" \"yarn backend dev\""
+    "dev": "concurrently \"yarn react dev\" \"yarn backend dev\""
   },
   "devDependencies": {
     "concurrently": "^4.1.0"

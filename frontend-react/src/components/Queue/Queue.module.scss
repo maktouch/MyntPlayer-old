@@ -1,0 +1,75 @@
+.QueueContainer {
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Title {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+}
+
+.Count {
+  background: white;
+  color: black;
+  display: inline-flex;
+  min-width: 20px;
+  text-align: center;
+  justify-content: center;
+  border-radius: 3px;
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.Queue {
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), var(--image-url) center center;
+  background-size: 120%;
+  background-repeat: no-repeat;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 12px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  .QueueOverlay {
+    display: none;
+  }
+
+  &:hover .QueueOverlay {
+    display: flex;
+  }
+}
+
+.QueueOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 0, 0, 0.3);
+
+  display: flex;
+  align-items: center;
+  padding: 0 2em;
+  justify-content: flex-end;
+}
+
+.Button {
+  display: flex;
+  border: none;
+  height: 25px;
+  margin-right: 10px;
+  border-radius: 3px;
+  align-items: center;
+}
+
+.AddMore {
+  width: 151px;
+  margin-top: 15px;
+}

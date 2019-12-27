@@ -1,6 +1,6 @@
 import search from 'youtube-search';
 import get from 'lodash/get';
-import config from './config';
+import config from '../../config';
 
 export default async function(query, params = {}) {
   const opts = {

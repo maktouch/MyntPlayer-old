@@ -39,7 +39,7 @@ spec:
         - name: frontend
           image: maktouch/myntplayer:{{.Values.tag}}
           imagePullPolicy: Always
-          command: ["yarn", "frontend", "start"]
+          command: ["yarn", "react", "start"]
           resources:
             requests:
               cpu: 100m

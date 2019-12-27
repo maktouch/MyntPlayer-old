@@ -1,7 +1,7 @@
 domain: myntplayer.maktouch.com
 
 REDIS_PREFIX: prd
-REDIS_SERVICE_HOST: 10.244.52.9
+REDIS_SERVICE_HOST: pubsub-redis-master
 REDIS_SERVICE_PORT: 6379
 
 tag: latest

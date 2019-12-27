@@ -1,0 +1,10 @@
+.PlayerWrapper {
+  grid-area: player;
+  position: relative;
+}
+
+.Player {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
