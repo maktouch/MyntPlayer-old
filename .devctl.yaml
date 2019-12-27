@@ -1,20 +1,37 @@
 services:
-  - name: ingress
-    path: .devctl/ingress
-    description: Ingress
-    category: services
-    notes: |
-      You can access your corresponding app by going to
-          https://myntplayer.local 
+  - name: react-cra
+    path: frontend-react
+    description: Frontend built with React (CRA)
+    category: frontend
+  
+  - name: svelte
+    path: frontend-svelte
+    description: Frontend built with Svelte
+    category: frontend
+
+  - name: backend
+    path: backend
+    description: Express / SocketIO server
+    category: always
 
   - name: redis
     path: .devctl/redis
     description: Redis
-    category: services
+    category: always
+
+  - name: ingress
+    path: .devctl/ingress
+    description: Ingress
+    category: always
+    notes: |
+      You can access your corresponding app by going to
+          https://myntplayer.local 
 
 environment:
   - name: dev
-    description: Run everything locally
+    description: Run everything locally in dev mode with hot reload, when supported
+  - name: local-build
+    description: Run everything locally in built mode
 
 commands: []
 scaffold: []

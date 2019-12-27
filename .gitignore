@@ -1,6 +1,6 @@
 .DS_Store
 node_modules
-.devctl-current.yaml
-.devctl-docker-compose.yaml
+.devctl-*.yaml
 charts/**/secrets*.yaml
 /.vscode
+**/.env

@@ -29,7 +29,7 @@
     "dotenv": "^8.2.0"
   },
   "scripts": {
-    "dev": "SKIP_PREFLIGHT_CHECK=true HTTPS=true react-scripts start",
+    "dev": "SKIP_PREFLIGHT_CHECK=true BROWSER=none react-scripts start",
     "start": "NODE_ENV=production node start.js",
     "build": "SKIP_PREFLIGHT_CHECK=true react-scripts build"
   },

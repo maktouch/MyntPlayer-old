@@ -1,0 +1,7 @@
+compose: {}
+dotenv: {}
+start:
+  dev: 
+    - yarn backend dev
+  local-build: 
+    - yarn backend start

@@ -1,14 +1,16 @@
 {
   "private": true,
   "workspaces": [
-    "*"
+    "backend",
+    "frontend-react"
   ],
   "scripts": {
+    "start": "devctl switch",
     "react": "yarn workspace @myntplayer/react",
-    "backend": "yarn workspace @myntplayer/backend",
-    "dev": "concurrently \"yarn react dev\" \"yarn backend dev\""
+    "backend": "yarn workspace @myntplayer/backend"
   },
   "devDependencies": {
+    "@splitmedialabs/devctl": "3.0.0",
     "concurrently": "^4.1.0"
   }
 }

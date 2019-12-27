@@ -1,0 +1,10 @@
+compose: {}
+dotenv: {}
+afterSwitch: 
+  local-build:
+    - yarn react build
+start:
+  dev: 
+    - yarn react dev
+  local-build: 
+    - yarn react start

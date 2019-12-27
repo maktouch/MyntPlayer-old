@@ -1,0 +1,10 @@
+compose: {}
+dotenv: {}
+afterSwitch: 
+  local-build:
+    - yarn --cwd frontend-svelte build
+start:
+  dev: 
+    - yarn --cwd frontend-svelte dev
+  local-build: 
+    - yarn --cwd frontend-svelte start
