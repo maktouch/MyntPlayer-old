@@ -71,7 +71,7 @@ function Search() {
           onBlur={onBlur}
           ref={ref}
         />
-        <FaSearch color="black" />
+        <FaSearch color="#8f908f" />
       </div>
 
       <div

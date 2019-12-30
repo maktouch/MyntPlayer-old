@@ -5,7 +5,6 @@ import config from '../../config';
 export default async function(query, params = {}) {
   const opts = {
     type: 'video',
-    maxResults: 10,
     videoEmbeddable: 'true',
     videoCategoryId: '10', // music only!
     key: config.REACT_APP_API_KEY,

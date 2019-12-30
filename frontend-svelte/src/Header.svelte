@@ -13,6 +13,6 @@
 </style>
 
 <div class="Header">
-  <img src="images/logo.png" alt="MyntPlayer" />
+  <img src="logo-full.png" alt="MyntPlayer" />
   <div class="Credit">v4.0 by MyntLabs.com © {new Date().getFullYear()}</div>
 </div>
